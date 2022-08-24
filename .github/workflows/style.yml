@@ -14,7 +14,7 @@ jobs:
           fetch-depth: 1
 
       - name: setup python, poetry, and just
-        uses: ./.github/actions/setup_python_poetry_just
+        uses: mpathic/mpathic-actions/.github/workflows/setup_python_poetry_just.yml@feature/reuse-flow
         with:
           poetry_cache_counter: 0  # increment to rebuild poetry cache
 
