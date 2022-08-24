@@ -4,6 +4,13 @@ on:
   workflow_call:
 
 jobs:
+
+  setup_python_poetry_and_just:
+    uses: mpathic/mpathic-actions/.github/workflows/setup_python_poetry_just.yml@feature/reuse-flow
+      with:
+        poetry_cache_counter: 0  # increment to rebuild poetry cache
+
+
   style:
     runs-on: ubuntu-latest
 
@@ -12,11 +19,6 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 1
-
-      - name: setup python, poetry, and just
-        uses: mpathic/mpathic-actions/.github/workflows/setup_python_poetry_just.yml@feature/reuse-flow
-        with:
-          poetry_cache_counter: 0  # increment to rebuild poetry cache
 
       - name: install dependencies
         uses: ./.github/actions/install_dependencies
