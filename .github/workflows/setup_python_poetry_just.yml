@@ -8,28 +8,28 @@ on:
         description: Counter used to clear poetry cache (should not need to change often)
         required: true
 
-runs:
-  using: composite
-  steps:
-    - name: set up python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
+jobs:
+  setup_python_poetry_just:
+    steps:
+      - name: set up python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
 
-    - name: set up just
-      uses: extractions/setup-just@v1
+      - name: set up just
+        uses: extractions/setup-just@v1
 
-    - name: load cached poetry installation
-      id: load-poetry-cache
-      uses: actions/cache@v2
-      with:
-        path: ~/.local
-        key: poetry-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ inputs.poetry_cache_counter }}
+      - name: load cached poetry installation
+        id: load-poetry-cache
+        uses: actions/cache@v2
+        with:
+          path: ~/.local
+          key: poetry-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ inputs.poetry_cache_counter }}
 
-    - name: install poetry
-      if: steps.load-poetry-cache.cache-hit != 'true'
-      uses: snok/install-poetry@v1
-      with:
-        virtualenvs-create: true
-        virtualenvs-in-project: true
-        installer-parallel: true
+      - name: install poetry
+        if: steps.load-poetry-cache.cache-hit != 'true'
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          installer-parallel: true
