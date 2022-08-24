@@ -1,11 +1,7 @@
 name: Style
 
 on:
-  pull_request: {}
-  push:
-    branches:
-      - main
-      - dev
+  workflow_call:
 
 jobs:
   style:
